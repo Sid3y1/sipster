@@ -54,7 +54,8 @@
             'AVFoundation',
             'CoreGraphics',
             'CoreVideo',
-            'CoreMedia'
+            'CoreMedia',
+            'Security'
           ],
           'libraries': [
             'CoreAudio.framework',
@@ -70,7 +71,8 @@
             'AVFoundation.framework',
             'CoreGraphics.framework',
             'CoreVideo.framework',
-            'CoreMedia.framework'
+            'CoreMedia.framework',
+            'Security.framework'
           ],
           # end gyp stupidity workaround =======================================
 
