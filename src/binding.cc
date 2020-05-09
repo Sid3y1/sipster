@@ -147,9 +147,8 @@ void dumb_cb(uv_async_t* handle) {
         SIPSTERCall* call = ev.call;
         Local<Value> new_call_args[1] = { Nan::New<External>(call) };
         Local<Object> call_obj;
-        call_obj = Nan::New(SIPSTERCall_constructor)
-                    ->GetFunction()
-                    ->NewInstance(1, new_call_args);
+        Local<Function> cons = Nan::New<Function>(SIPSTERCall_constructor);
+        call_obj = Nan::NewInstance(cons, 1, new_call_args).ToLocalChecked();
         Local<Value> emit_argv[3] = {
           Nan::New(ev_INCALL_call_symbol),
           obj,
@@ -235,9 +234,8 @@ void dumb_cb(uv_async_t* handle) {
             if (ci.media[i].type == PJMEDIA_TYPE_AUDIO
                 && (media = static_cast<AudioMedia*>(call->getMedia(i)))) {
               Local<Object> med_obj;
-              med_obj = Nan::New(SIPSTERMedia_constructor)
-                          ->GetFunction()
-                          ->NewInstance(0, NULL);
+              Local<Function> cons = Nan::New<Function>(SIPSTERCall_constructor);
+              med_obj = Nan::NewInstance(cons, 0, NULL).ToLocalChecked();
               SIPSTERMedia* med =
                 Nan::ObjectWrap::Unwrap<SIPSTERMedia>(med_obj);
               med->media = media;
@@ -427,9 +425,8 @@ static NAN_METHOD(CreateRecorder) {
   }
 
   Local<Object> med_obj;
-  med_obj = Nan::New(SIPSTERMedia_constructor)
-              ->GetFunction()
-              ->NewInstance(0, NULL);
+  Local<Function> cons = Nan::New<Function>(SIPSTERCall_constructor);
+  med_obj = Nan::NewInstance(cons, 0, NULL).ToLocalChecked();
   SIPSTERMedia* med = Nan::ObjectWrap::Unwrap<SIPSTERMedia>(med_obj);
   med->media = recorder;
   med->is_media_new = true;
@@ -460,9 +457,8 @@ static NAN_METHOD(CreatePlayer) {
   }
 
   Local<Object> med_obj;
-  med_obj = Nan::New(SIPSTERMedia_constructor)
-              ->GetFunction()
-              ->NewInstance(0, NULL);
+  Local<Function> cons = Nan::New<Function>(SIPSTERCall_constructor);
+  med_obj = Nan::NewInstance(cons, 0, NULL).ToLocalChecked();
   SIPSTERMedia* med = Nan::ObjectWrap::Unwrap<SIPSTERMedia>(med_obj);
   med->media = player;
   med->is_media_new = true;
@@ -504,9 +500,8 @@ static NAN_METHOD(CreatePlaylist) {
   }
 
   Local<Object> med_obj;
-  med_obj = Nan::New(SIPSTERMedia_constructor)
-              ->GetFunction()
-              ->NewInstance(0, NULL);
+  Local<Function> cons = Nan::New<Function>(SIPSTERCall_constructor);
+  med_obj = Nan::NewInstance(cons, 0, NULL).ToLocalChecked();
   SIPSTERMedia* med = Nan::ObjectWrap::Unwrap<SIPSTERMedia>(med_obj);
   med->media = player;
   med->is_media_new = true;
