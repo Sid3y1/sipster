@@ -16,13 +16,10 @@
       'conditions': [
         [ 'OS!="win"', {
           'cflags_cc': [
-            '<!@(pkg-config --atleast-version=2.4.5 libpjproject)',
-            '<!@(pkg-config --cflags libpjproject)',
             '-fexceptions',
             '-Wno-maybe-uninitialized' # This isn't supported on OS X w/ clang
           ],
           'libraries': [
-            '<!@(pkg-config --libs libpjproject)',
           ],
         }],
         [ 'OS=="mac"', {
